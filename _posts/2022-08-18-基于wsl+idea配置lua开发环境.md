@@ -140,7 +140,7 @@ cd ideaIC-2022.2.1
 cd bin
 ./idea.sh
 ```
-会弹出idea的GUI，对应的是wsl中的idea，在idea中打开wsl中的功能就可以开发了。
+会弹出idea的GUI，对应的是wsl中的idea，在idea中打开wsl中的工程就可以开发了。
 
 idea中需要配置lua的sdk位置和安装EmmyLua插件，不贴图了。
 
