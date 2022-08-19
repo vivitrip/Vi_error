@@ -168,3 +168,42 @@ PS.为什么选择idea开发lua而不是vs这种更为轻量化的ide。 客观�
 luarocks remove lua-cjson
 luarocks install lua-cjson 2.1.0-1
 ```
+
+## idea字体包问题
+
+使用idea的过程中发现中文显示异常，所有的中文字体都变成了方块，需要安装中文字体。
+
+安装依赖
+
+```shell
+sudo apt install language-pack-zh-hans
+sudo apt install fontconfig
+sudo dpkg-reconfigure locales 
+```
+执行第三个命令之后会弹出语言选择，依照截图选择。
+
+![img.png](../posts_image/0818img02.png)
+
+![img.png](../posts_image/0818img03.png)
+
+然后开始安装字体
+
+```shell
+vi /etc/fonts/local.conf
+```
+
+文件内容：
+```xml
+<?xml version="1.0"?>
+<!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+<fontconfig>
+    <dir>/mnt/c/Windows/Fonts</dir>
+</fontconfig>
+```
+
+刷新字体缓存、重启wsl
+```shell
+sudo fc-cache -f -v
+# powershell 执行
+wsl --shutdown
+```
