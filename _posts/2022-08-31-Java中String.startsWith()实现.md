@@ -11,7 +11,7 @@ categories:
 
 tags:
 
-- [Java,Leetcode]
+- [Java,LeetCode]
 
 ---
 
