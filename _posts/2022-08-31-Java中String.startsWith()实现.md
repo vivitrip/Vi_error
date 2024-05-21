@@ -17,7 +17,7 @@ tags:
 
 # 原题目
 
-Leetcode原题地址 : [1455. 检查单词是否为句中其他单词的前缀](https://leetcode.cn/problems/check-if-a-word-occurs-as-a-prefix-of-any-word-in-a-sentence/)
+LeetCode原题地址 : [1455. 检查单词是否为句中其他单词的前缀](https://leetcode.cn/problems/check-if-a-word-occurs-as-a-prefix-of-any-word-in-a-sentence/)
 
 还是业务代码写多了，在看到这道题的时候，还奇怪了一下这种题目有什么好出的，然后飞快给出了ac代码。
 

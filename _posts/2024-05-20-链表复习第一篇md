@@ -1,0 +1,123 @@
+---
+title: 2024-05-20-链表复习第一篇.md
+
+author: Vi_error
+
+description: 复习数据结构中链表基础知识
+
+categories:
+
+  - algorithm
+
+tags:
+
+  - [ algorithm, data structure ]
+
+---
+
+# 链表
+
+本来觉得基础数据结构这块自己还是比较熟悉的，没想到到链表反转的题目一下子被节点绕迷糊了，挫折感一下子就出来了。
+
+然后寻思一下，这还能被这种小问题搞定，不要浪费时间感叹自己不记得了，赶紧处理完再说。
+
+链表：数据+指针构成的数据结构存储单位。
+
+相对于数组，它消耗了额外的空间存储指针，但是可以使用不连续的内存空间。
+
+那么使用链表，因为指针的存在，数据操作的时间复杂度也发生了变化。
+
+- 计算链表的大小，O(n)
+- 指定位置插入数据O(1)
+- 指定位置删除数据O(1)
+
+作为对比，数组是这样的：
+
+- 计算链表的大小，O(1)
+- 指定位置插入数据O(n)
+- 指定位置删除数据O(n)
+
+很明显，场景上各有擅长。
+
+然后是链表的分类：
+- 单链表，只有数据和next
+- 双链表，数据，pre和nex
+- 环状单链表，最后一个节点的next是第一个节点，第一个节点的pre是最后一个节点
+- 环状双链表，最后一个节点的next是第一个节点，第一个节点的pre是最后一个节点
+
+链表的操作：
+- 头插：新建一个节点，把新节点的next指向原来的第一个节点
+- 尾插：新建一个节点，把原链表最后一个节点指向新节点
+
+常见的算法考察：
+- 反转
+- 合并
+- 环状检测
+- 排序（合并排序）
+- 回文检测
+
+
+# 定义链表
+```java
+public class ListNode {
+
+  public int val;
+  public ListNode next;
+
+  public ListNode() {
+  }
+
+  public ListNode(int val) {
+    this.val = val;
+  }
+
+  public ListNode(int val, ListNode next) {
+    this.val = val;
+    this.next = next;
+  }
+}
+```
+
+# 链表工具类
+
+```java
+
+public class ListNodeUtil {
+
+  /**
+   * 打印链表的值
+   * @param head 链表头
+   */
+  public static void printList(ListNode head) {
+    ListNode current = head;
+    while (current != null) {
+      System.out.print(current.val + " -> ");
+      current = current.next;
+    }
+    System.out.println("null");
+  }
+
+  /**
+   * 基于数组生成链表（默认无环）
+   * @param arr 数组
+   * @return 链表
+   */
+  public static ListNode arrayToList(int[] arr) {
+    if (arr == null || arr.length == 0) {
+      return null;
+    }
+
+    ListNode head = new ListNode(arr[0]);
+    ListNode current = head;
+
+    for (int i = 1; i < arr.length; i++) {
+      current.next = new ListNode(arr[i]);
+      current = current.next;
+    }
+
+    return head;
+  }
+}
+```
+
+本来应该顺便把对应的算法题完成的，但是临时被叫来出差，上午的飞机下午现场解决问题，今天眼看着写不完，来日再战。
