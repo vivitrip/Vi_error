@@ -1,6 +1,3 @@
-# source 'https://rubygems.org'
 source 'https://gems.ruby-china.com'
-gem 'github-pages', group: :jekyll_plugins
-#gem 'jekyll-admin', group: :jekyll_plugins
-
-gem "webrick", "~> 1.7"
+gem 'github-pages', '~> 232', group: :jekyll_plugins  # 示例：尝试 232 系列版本
+gem "jekyll", "~> 3.10.0"
