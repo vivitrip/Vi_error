@@ -49,6 +49,13 @@ markdown: kramdown
 kramdown:
     input: GFM
 
+mermaid:
+  enable: true
+  # Use 'true' to enable Mermaid support.
+  # Use 'false' to disable Mermaid support.
+  # If you want to use Mermaid, please install the jekyll-mermaid plugin.
+  # See: https://github.com/mermaid-js/mermaid
+
 # Default Attributes
 ## Docs: https://jekyllrb.com/docs/configuration/#front-matter-defaults
 defaults:
@@ -70,6 +77,7 @@ plugins:
  - jemoji
  - jekyll-sitemap
  - jekyll-feed
+ - jekyll-mermaid
 
 # ---------------------------------------------------------------
 # Site Information Settings
@@ -244,7 +252,7 @@ toc:
   number: true
 
   # If true, all words will placed on next lines if header width longer then sidebar width.
-  wrap: false
+  wrap: true
 
 
 # Creative Commons 4.0 International License.
@@ -407,7 +415,7 @@ wildfire:
     siteId:
   # other configs
   theme: light # or dark
-  locale: en # or other locales, e.g. zh-CN
+  locale: zh-CN # or other locales, e.g. zh-CN
   defaultAvatarURL: 
 # Any question? 
 # Raise an issue here: https://github.com/cheng-kang/wildfire/issues
