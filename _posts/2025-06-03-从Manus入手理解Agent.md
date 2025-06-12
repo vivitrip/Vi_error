@@ -13,8 +13,6 @@ tags:
 
 - [LLM,Agent,Manus]
 
-mermaid: true
-
 ---
 
 在对Agent的概念有一些基础理解之后，现在面临第二个问题：如果想要完成一个Agent工程的开发，需要完成哪些工作。
@@ -56,6 +54,7 @@ graph LR
     class C,D,E,F openSource
     class G,H product
 ```
+
 LLM之前我们就拥有了Siri这样的语音助手，LLM之后Agent从懵懂的尝试逐渐专业和复杂，到Manus已经完整了Agent任务处理线索，选择Manus没有问题。
 
 # Agent设计中的挑战和Jmanus的应对
@@ -67,17 +66,17 @@ LLM之前我们就拥有了Siri这样的语音助手，LLM之后Agent从懵懂�
 上一篇大致理解了为什么会有Agent以及Agent大概会有哪些挑战。Lilian Weng明确提出的有：
 
 > Finite context length: The restricted context capacity limits the inclusion of historical information, detailed instructions, API call context, and responses. The design of the system has to work with this limited communication bandwidth, while mechanisms like self-reflection to learn from past mistakes would benefit a lot from long or infinite context windows. Although vector stores and retrieval can provide access to a larger knowledge pool, their representation power is not as powerful as full attention.
-> 
+>
 > Challenges in long-term planning and task decomposition: Planning over a lengthy history and effectively exploring the solution space remain challenging. LLMs struggle to adjust plans when faced with unexpected errors, making them less robust compared to humans who learn from trial and error.
-> 
+>
 > Reliability of natural language interface: Current agent system relies on natural language as an interface between LLMs and external components such as memory and tools. However, the reliability of model outputs is questionable, as LLMs may make formatting errors and occasionally exhibit rebellious behavior (e.g. refuse to follow an instruction). Consequently, much of the agent demo code focuses on parsing model output.
 
 附翻译：
 
 > 有限上下文长度：受限上下文容量限制了历史信息、详细说明、API 调用上下文和响应的包含。系统的设计必须与这种有限的通信带宽一起工作，而像自我反思这样从过去的错误中学习的机制将从长或无限的上下文窗口中受益匪浅。尽管向量存储和检索可以提供对更大知识库的访问，但它们的表示能力不如全神贯注强大。
-> 
+>
 > 长期规划和任务分解中的挑战：在漫长的历史中进行规划并有效探索解决方案空间仍然具有挑战性。LLM 在面临意外错误时难以调整计划，与从反复试验中学习的人类相比，它们不那么强大。
-> 
+>
 > 自然语言接口的可靠性：当前的代理系统依赖于自然语言作为 LLM 与外部组件（如内存和工具）之间的接口。然而，模型输出的可靠性值得怀疑，因为 LLM 可能会犯格式错误，偶尔会表现出叛逆行为（例如拒绝遵循指令）。因此，大部分代理演示代码都侧重于解析模型输出。
 
 对照Agent工具的设计实现，我们至少可以get到一些实际上的挑战：
@@ -92,6 +91,7 @@ LLM之前我们就拥有了Siri这样的语音助手，LLM之后Agent从懵懂�
 ## Jmanus的设计
 
 ### 任务处理主流程
+
 JManus的主流程大概是这样的：
 
 ```mermaid
@@ -125,10 +125,10 @@ graph TD
 然后是任务执行的控制。Jmanus的任务执行控制主要在PlanExecutor.executeAllSteps中，有这么几个状态(AgentState)：
 
 - NOT_STARTED("not_started"),
-- IN_PROGRESS("in_progress"), 
-- COMPLETED("completed"), 
+- IN_PROGRESS("in_progress"),
+- COMPLETED("completed"),
 - BLOCKED("blocked"),
-- FAILED("failed"); 
+- FAILED("failed");
 
 任务的控制逻辑中会对任务状态进行检查，block的任务会有处理，任务的状态也会被统一的维护，但是单一任务的失败不会影响整个计划。
 
@@ -253,7 +253,7 @@ Jmanus有个需要特别注意的模式：计划模式。
 我们以debug方式启动服务，在页面输入问题，跟踪任务处理的全过程。
 
 - 页面请求入口为：/api/executor/execute
-- 对应的后端代码在：ManusController.executeQuery(@RequestBody Map<String, String> request) 
+- 对应的后端代码在：ManusController.executeQuery(@RequestBody Map<String, String> request)
 
 通过debug可以看到完整的流程。
 
