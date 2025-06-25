@@ -270,10 +270,71 @@ public @interface AiService {
 
 看上去非常的清晰。
 
+## demo
+
+controller
+
+```JAVA
+@RestController
+@RequestMapping("/api/chat")
+public class ChatController {
+
+    private final ChatModel chatModel;
+
+    public ChatController(ChatModel chatModel) {
+        this.chatModel = chatModel;
+    }
+
+    @PostMapping
+    public ChatResponse chat(@RequestBody ChatRequest request) {
+        DemoAgent demoAgent = AiServices.builder(DemoAgent.class)
+                .tools(new DemoTools())
+                .chatMemoryProvider(memoryId -> MessageWindowChatMemory.withMaxMessages(10))
+                .chatModel(chatModel)
+                .build();
+
+        String reply = demoAgent.chatString(request.getUsername(), request.getMessage());
+        ChatResponse response = new ChatResponse();
+        response.setReply(reply);
+        return response;
+    }
+
+}
+```
+
+service
+
+```JAVA
+@AiService
+public interface DemoAgent {
+
+    @SystemMessage("你是DemoAgent，一个用来测试langchain4j框架的只能助手")
+    String chatString(@MemoryId String userName, @UserMessage String message);
+}
+```
+
+配置
+
+```properties
+spring.application.name=with-langchain4j
+server.port=8080
+
+
+langchain4j.open-ai.chat-model.api-key=
+langchain4j.open-ai.chat-model.model-name=qwen-max
+langchain4j.open-ai.chat-model.base-url=https://dashscope.aliyuncs.com/compatible-mode/v1
+```
+
+本来这个demo是准备单独写一个的，但写下来实在太简单了，单独开没必要，就放在这里吧。
+
 ## summary
 
-到这里其实已经把langchain4j的大概样貌捞出来了，接下来继续看代码会相对低效，所以接下来会用langchain4j写一个demo。
+Langchain4j作为Java生态中langchain产品，作为Java&AI基础开发框架还是做的比较完善的，整体设计也没有什么问题。
 
-小小的ps一下，因为从周一开始肠胃炎到现在也没全好，效率慢了些，这篇写不动了也是真的=，=
+对Spring boot工程也提供便捷集成方式，用来做基础框架开发没有技术上的问题。
 
-希望赶紧好起来，see you/me next post～
+但这里要回答一个问题，langchain4j比Spring AI有什么优势吗？
+
+我没有找到这个问题的答案，也许调研Spring AI 框架之后会有答案，也许直接就把langchain4j pass了。
+
+在Java生态圈做任何的工具，只要Spring也提供了这种能力，都会不可避免和Spring功能比较，没有独特的优势都很难繁荣起来，这是Java生态的常态了。
